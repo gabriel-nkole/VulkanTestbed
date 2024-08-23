@@ -59,3 +59,4 @@ https://github.com/user-attachments/assets/8a80ab5f-2112-4089-9be7-918bf8930e0b
 
 ## Notes
 - Because the cursor needs to be disabled instead of hidden for camera rotation to work properly, in the event of a runtime error, it may be necessary to sign out with Ctrl+Alt+Delete since the cursor will not be visible. Must fix.
+- assimp-vc143-mt.dll needs to be in same directory as exe or program will not work.
