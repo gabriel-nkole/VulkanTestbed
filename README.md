@@ -2,7 +2,7 @@
 by Gabriel Nkole
 
 ## Description
-Vulkan framework showcasing different graphical techniques
+Vulkan framework showcasing various graphical techniques
 
 ## Libraries/Programs
 - Vulkan 1.1 - Graphics API
