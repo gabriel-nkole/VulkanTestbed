@@ -47,7 +47,7 @@ https://github.com/user-attachments/assets/8a80ab5f-2112-4089-9be7-918bf8930e0b
 ## Todo
 - Implement GUI using the Imgui library (be able to alter light properties[position, direction, color, intensity, etc.] and turn shadows on/off in real-time)
 - Framerate/Frametime Counters
-- Improve Shadow Quality (PCF Filtering)
+- Improve Shadow Quality (Percentage Closer Filtering [PCF])
 - Normal Mapping
 - Post Processing
 - Soft Shadows
