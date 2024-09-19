@@ -1,5 +1,5 @@
 #version 450
-#define MAX_NUM_ALBEDO_TEXTURES 100
+#define MAX_NUM_ALBEDOMAPS 100
 
 #define MAX_NUM_DIR_LIGHTS 100
 #define MAX_NUM_SPOT_LIGHTS 100
@@ -17,7 +17,7 @@ layout(push_constant, std430) uniform matrices {
 };
 
 
-layout(set = 0, binding = 1) uniform sampler2D AlbedoTextures[MAX_NUM_ALBEDO_TEXTURES];
+layout(set = 0, binding = 1) uniform sampler2D Albedomaps[MAX_NUM_ALBEDOMAPS];
 
 layout(set = 1, binding = 0) uniform NumLightsUBO {
 	uint numDirLights;
@@ -152,7 +152,7 @@ void main(){
 	//vec3 N = normalize(normal);
 	//outCol = vec4(N, 1.0f);
 
-	vec4 texCol = texture(AlbedoTextures[textureIndex], uv);
+	vec4 texCol = texture(Albedomaps[textureIndex], uv);
 	
 	// LIGHTING
 	outCol = vec4(0.0f);
