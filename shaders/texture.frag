@@ -151,16 +151,13 @@ void main(){
 	//vec3 N = normalize(normal);
 	//outCol = vec4(N, 1.0f);
 
-
 	vec4 texCol = texture(Albedomaps[textureIndex], uv);
 	
 	// LIGHTING
+	vec3 N = normalize(normal);
 	outCol = vec4(0.0f);
 	
-	
-	vec3 N = normalize(normal);
-	
-	for(uint dirLightIndex = 0; dirLightIndex < numLightsUBO.numDirLights; dirLightIndex++){
+	for (uint dirLightIndex = 0; dirLightIndex < numLightsUBO.numDirLights; dirLightIndex++) {
 		Light light = DirLights[dirLightIndex];
 		vec3 L = -light.dir;
 	
@@ -172,7 +169,7 @@ void main(){
 		outCol += texCol * diffuse * light.col * attenuation;
 	}
 	
-	for(uint spotLightIndex = 0; spotLightIndex < numLightsUBO.numSpotLights; spotLightIndex++){
+	for (uint spotLightIndex = 0; spotLightIndex < numLightsUBO.numSpotLights; spotLightIndex++) {
 		Light light = SpotLights[spotLightIndex];
 		vec3 L = normalize(light.pos - wPos);
 	
@@ -184,7 +181,7 @@ void main(){
 		outCol += texCol * diffuse * light.col * attenuation;
 	}
 	
-	for(uint pointLightIndex = 0; pointLightIndex < numLightsUBO.numPointLights; pointLightIndex++){
+	for (uint pointLightIndex = 0; pointLightIndex < numLightsUBO.numPointLights; pointLightIndex++) {
 		Light light = PointLights[pointLightIndex];
 		vec3 L = normalize(light.pos - wPos);
 	
