@@ -76,7 +76,7 @@ float EnergyCalculationDir(uint dirLightIndex) {
 		return lightIntensity;
 	}
 
-
+	// light_cPos = Clip-Space position from perspective of light 
 	vec4 light_cPos = DirLightVPMatrices[dirLightIndex].VP * vec4(wPos, 1.0f);
 	vec3 projCoords = light_cPos.xyz / light_cPos.w;
 	projCoords.xy = projCoords.xy * 0.5f + 0.5f;
@@ -148,46 +148,46 @@ float EnergyCalculationPoint(uint pointLightIndex) {
 }
 
 void main(){
-	//outCol = col;
 	//vec3 N = normalize(normal);
 	//outCol = vec4(N, 1.0f);
+
 
 	vec4 texCol = texture(Albedomaps[textureIndex], uv);
 	
 	// LIGHTING
 	outCol = vec4(0.0f);
 	
-
+	
 	vec3 N = normalize(normal);
-
+	
 	for(uint dirLightIndex = 0; dirLightIndex < numLightsUBO.numDirLights; dirLightIndex++){
 		Light light = DirLights[dirLightIndex];
 		vec3 L = -light.dir;
-
+	
 		// Attenuation
 		float attenuation = EnergyCalculationDir(dirLightIndex);
-
+	
 		// Diffuse
 		float diffuse = clamp(dot(N, L), 0.0f, 1.0f);
 		outCol += texCol * diffuse * light.col * attenuation;
 	}
-
+	
 	for(uint spotLightIndex = 0; spotLightIndex < numLightsUBO.numSpotLights; spotLightIndex++){
 		Light light = SpotLights[spotLightIndex];
 		vec3 L = normalize(light.pos - wPos);
-
+	
 		// Attenuation
 		float attenuation = EnergyCalculationSpot(spotLightIndex);
-
+	
 		// Diffuse
 		float diffuse = clamp(dot(N, L), 0.0f, 1.0f);
 		outCol += texCol * diffuse * light.col * attenuation;
 	}
-
+	
 	for(uint pointLightIndex = 0; pointLightIndex < numLightsUBO.numPointLights; pointLightIndex++){
 		Light light = PointLights[pointLightIndex];
 		vec3 L = normalize(light.pos - wPos);
-
+	
 		// Attenuation
 		float attenuation = EnergyCalculationPoint(pointLightIndex);
 		
@@ -196,9 +196,9 @@ void main(){
 		outCol += texCol * diffuse * light.col * attenuation;
 	}
 	
-
+	
 	// Ambient
 	outCol += texCol * vec4(vec3(1.0f, 1.0f, 1.0f) * 0.1f, 1.0f);
-
+	
 	outCol = clamp(outCol, vec4(0.0f), vec4(1.0f));
 }
